@@ -17,6 +17,7 @@ public class Main {
             }
             rooms.add(roomRow);
         }
+        rooms.get(0).get(0).isStart = true;
         return rooms;
     }
 
@@ -67,6 +68,17 @@ public class Main {
         room.wasVisited = true;
         Room nextRoom = randomNeighbor(rooms, room.row, room.col);
         if (nextRoom == null) {
+            boolean tempIsEnd = false;
+            for (ArrayList<Room> roomList : rooms) {
+                for (Room oneRoom : roomList) {
+                    if (oneRoom.isEnd) {
+                        tempIsEnd = true;
+                    }
+                }
+            }
+            if(!tempIsEnd) {
+                room.isEnd = true;
+            }
             return false;
         }
 
@@ -92,6 +104,12 @@ public class Main {
             System.out.print("|");
             for (Room room : roomRow) {
                 String s1 = room.hasBottom? "_" : " "; //shorter way of making an if statement.
+                if (room.isStart) {
+                    s1 = "o";
+                }
+                if (room.isEnd) {
+                    s1 = "x";
+                }
                 String s2 = room.hasRight? "|" : " ";
                 System.out.print(s1 + s2);
             }
