@@ -70,14 +70,15 @@ public class Main {
         if (nextRoom == null) {
             System.out.println("Got stuck : row " + room.row + " col " + room.col);
             boolean tempIsEnd = false;
-            for (ArrayList<Room> roomList : rooms) {
-                for (Room oneRoom : roomList) {
+            for (ArrayList<Room> roomRow : rooms) {
+                for (Room oneRoom : roomRow) {
                     if (oneRoom.isEnd) {
                         tempIsEnd = true;
+                        break; //is this necessary? code worked without it.
                     }
                 }
             }
-            if(!tempIsEnd) {
+            if(!tempIsEnd) { //if tempIsEnd is not set yet, room.isEnd is set to true.
                 room.isEnd = true;
             }
             return false;
