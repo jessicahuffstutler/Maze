@@ -34,7 +34,7 @@ public class Main {
         ArrayList<Room> neighbors = possibleNeighbors(rooms, row, col);
         neighbors = neighbors.stream()
                 .filter(room -> {
-                    return !room.wasVisited; //only return the rooms if they have not been visisted yet
+                    return !room.wasVisited; //only return the rooms if they have not been visited yet
                 })
                 .collect(Collectors.toCollection(ArrayList<Room>::new));
         if (neighbors.size() > 0) { //how you get a random thing from an ArrayList
@@ -68,6 +68,7 @@ public class Main {
         room.wasVisited = true;
         Room nextRoom = randomNeighbor(rooms, room.row, room.col);
         if (nextRoom == null) {
+            System.out.println("Got stuck : row " + room.row + " col " + room.col);
             boolean tempIsEnd = false;
             for (ArrayList<Room> roomList : rooms) {
                 for (Room oneRoom : roomList) {
@@ -87,7 +88,9 @@ public class Main {
         while (createMaze(rooms, nextRoom)) {
             //nothing has to be in here because it's going to run until the above returns false because there's no where else to go.
         }
+
         return true;
+        //return false; //this shows only the few squares you could go to before hitting a dead end and then stops.
     }
 
     public static void main(String[] args) {
